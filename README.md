@@ -11,11 +11,17 @@
     - ## TCP
         - la conexión se realiza utilizando 
     - UDP
-    - Websockets: https://www.youtube.com/watch?v=2Nt-ZrNP22A&list=PLQnljOFTspQUGjfGdg8UvL3D_K9ACL6Qh&index=2
+    - Websockets: https://www.youtube.com/watch?v=2Nt-ZrNP22A&list=PLQnljOFTspQUGjfGdg8UvL3D_K9ACL6Qh&index=2 https://www.youtube.com/watch?v=1BfCnjr_Vjg
     - Bidirectional
     - grpc: https://www.youtube.com/watch?v=Yw4rkaTc0f8
 - ## HTTP 1.0, 1.1, HTTP/2, HTTP/3
-    - referencias: https://www.youtube.com/watch?v=0OrmKCB0UrQ
+    - referencias: 
+        - http 1.0, 1.1, 2 y 3: https://www.youtube.com/watch?v=0OrmKCB0UrQ
+        - http 2: https://www.youtube.com/watch?v=fVKPrDrEwTI
+        - tls: https://www.youtube.com/watch?v=AlE5X1NlHgg
+        - https: https://www.youtube.com/watch?v=clK8Wf4-F5k
+    - utiliza por defecto el puerto 80.
+    - el protocólo http es stateless (ver sesion de stateless), el servidor no utiliza información de una request anterior para resolver la request actual.
     - el protocolo de transferencia de hipertexto es un protocolo de transferencia de datos de la capa de aplicación.
     - arquitectura cliente servidor: un cliente hace una petición (request) a un servidor y este devuelve una respuesta)
         - ejemplos de clientes: navegador, aplicaciones de python, javascript, postman, insomnia, curl, etc.
@@ -40,10 +46,14 @@
     - ## http 1.1
         - implementa el header keep-alive para mantener la conexión hasta que la transferencia sea realizada.
         - la transferencia de la página se hace por pedazos y todos los pedazos se envían durante una misma conexión
+        - si se necesitan varios archivos (ej: main.html, main.js, ...), se realiza una request para cada uno de esos archivos
+        y por ejemplo la petición de main.js no se puede ejecutar hasta que se termina la petición de main.html (una petición a la vez, 1 conexión por archivo).
+        - compresión de datos pero no de headers.
     - ## http 2
-        - multiplexado: multiples request que pasan por un único canal.
-        - comresión
-        - server push: el client no tiene qué esperar a que llegue la response, el server la envía por si mismo cuando esté lista.
+        - multiplexado: multiples request son realizadas por la misma conexión TCP (varios archivos pueden ser solicitados en una misma request), cada request tiene asociado un stream id para que el servidor identifique a qué request pertenece cada response. las request son procesadas una por una y se asigna un response id para que el client identifique a qué resquest pertenece cada response.
+        - server push: el servidor puede ser configurado para enviar múltiples responses para una misma request (ej: si se solicita index.html es probable que también se requiera index.css, indexjs, etc de acuerdo a la lógica de la aplicación, así que se pueden enviar las response de todos estos archivos a la petición de index.html pero el cliente debe ser configurado para recibirlos) 
+        - compresión de headers y datos.
+        - implementa tls por defecto.
     - ## http 3
         - cambia TCP por QUIC (UDP + congestion control para mejorar un poco la confiabilidad de transmisión)
         - no se garantiza el envío en orden y completo por no usar TCP.
@@ -91,7 +101,7 @@
 - ## Rest:
     - ## referencias:
         - rest  hussein nasser: https://www.youtube.com/watch?v=EKCM1oQQrCM
-        
+
     Representational "state transfer", el estado es ***representado*** mediante una ***transferencia de estado***. El servidor no guarda ninguna información sobre el cliente (es decir, ***stateless***), la ***transferencia de estado*** se encarga de enviar toda la información necesaria para identiicar el usuario y la petición se realiza exclusivamente con base al estado ***representado*** por la ***transferencia de estado***.
 - ## Web servers
     - Static vs dinamic
@@ -113,7 +123,18 @@
     - Yml
     - Protocol buffers
 - ## Security
-    -
+    - referencias:
+        - Transport Layer Security, TLS 1.2 and 1.3: https://www.youtube.com/watch?v=AlE5X1NlHgg
+        - Transport Layer Security (TLS) - Computerphile: https://www.youtube.com/watch?v=0TLDTodL7Lc
+        - Secret Key Exchange (Diffie-Hellman) - Computerphile: https://www.youtube.com/watch?v=NmM9HA2MQGI
+    
+    - ## TLS, transport layer security:
+        - 
+    - ## https
+        - utiliza por defecto el puerto 443.
+        - client y server guardan una llave para encriptar y desencriptar la información enviada en la request y la response (encriptación simétrica).
+        - utiliza tls para encriptar.
+
 # referencias
 - 5 conceptos que debe conocer un backend junior: https://www.youtube.com/watch?v=8fCPeivEJtE
 - 100 computer science concepts: https://www.youtube.com/watch?v=-uleG_Vecis
@@ -132,4 +153,4 @@
 
 
 
-git commit -m "algunos cambios de orden, se profundizo el tema de http, y se cambió la forma de referenciar"
+
