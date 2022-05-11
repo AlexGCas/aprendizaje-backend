@@ -104,8 +104,29 @@
 
     Representational "state transfer", el estado es ***representado*** mediante una ***transferencia de estado***. El servidor no guarda ninguna información sobre el cliente (es decir, ***stateless***), la ***transferencia de estado*** se encarga de enviar toda la información necesaria para identiicar el usuario y la petición se realiza exclusivamente con base al estado ***representado*** por la ***transferencia de estado***.
 - ## Web servers
-    - Static vs dinamic
-    - Single threated vs multithreated
+    - ## referencias:
+        - web servers hussein nasser: https://www.youtube.com/watch?v=JhpUch6lWMw&list=PLQnljOFTspQUNnO4p00ua_C5mKTfldiYT&index=10
+        
+    un web server es un software que entrega contenido web, usa el protocolo http, puede entregar contenido estático o dinámico y se puede usar para servir APIs, páginas web y blogs.
+    - ## static vs dynamic
+        |static|dynamic|
+        |------|-------|
+        |el contenido está en archivos descargables y no es modificable.|el contenido es consultado a una base de datos y entregado al usuario.|
+    - un web server responde a peticiones http.
+    - ## blocking single-threaded web server:
+        - el servidor reserva memoria para resolver la petición (tcp socket) que no puede ser utilizado en ninguna otra función hasta que la petición sea resuelta.
+        - el tcp socket no puede ser utilizado para resolver peticiones de otros clientes, si un segundo cliente intenta acceder al servidor debe crearse otro tcp socket.
+        - si un client intenta realizar una request mientras otro está haciendo su request, no se puede realizar hasta que el otro cliente termine la request (blocking single-threated)
+        - ### ventajas:
+            - asignar memoria a un client puede resultar rápido porque en las siguientes request irá directamente a la memoria asignada.
+            - a pesar de que es single threaded, se pueden levantar varios servidores de este tipo para 
+        - ### desventajas:
+            - reservar memoria lo hace suceptible a ataques porque es fácil conectarse con varios client y que utilizen toda la memoria.
+            - no se pueden resolver varias request simultaneamente en un servidor.
+        - ## ejemplos de web servers:
+            - httpd (de apache).
+            - tomcat.
+            - IIS.
     - Web server vs proxy: nginex
 - ## Database engineering
 - ## Proxy
